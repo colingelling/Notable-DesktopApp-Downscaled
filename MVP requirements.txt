@@ -1,0 +1,6 @@
+Requirements:
+
+Maximum of 4 classes
+Maximum of 400 lines
+
+Following tutorial: https://www.pythonguis.com/tutorials/modelview-architecture/
