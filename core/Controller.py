@@ -4,34 +4,40 @@
     Using Pycharm Professional
 
 """
-from PyQt6 import QtWidgets, uic
-from PyQt6.QtWidgets import QDialog
+
+from core.Views import Views
 
 
-class Controller(QtWidgets.QMainWindow, QDialog):
-
-	# TODO: Use a minimized version of the WindowController functionality for 'navigate', load views within the other functions
-	# Reminder, use these functions to intercept the data-model before passing it to views
-
+class Controller:
+	
+	def __init__(self):
+		self.views_model = Views(self)
+		
+		self.active_view = None  # Track the active QMainWindow
+		self.active_dialog = None  # Track the active QDialog
+	
 	def overview(self):
-		qt_creator_file = "src/ui/OverviewWindow.ui"
-		uic.loadUi(qt_creator_file, self)  # Load the .ui file
-		self.show()
-
+		# Initialize and show the QMainWindow view
+		self.active_view = self.views_model.overview()
+		self.active_view.show()
+	
 	def options(self):
-		pass
-
+		# Initialize and show the QDialog view
+		self.active_dialog = self.views_model.options()
+		self.active_dialog.setModal(True)
+		self.active_dialog.exec()
+	
 	def add_notebook(self):
 		pass
-
+	
 	def delete_notebook(self):
 		pass
-
+	
 	def add_note(self):
 		pass
-
+	
 	def edit_note(self):
 		pass
-
+	
 	def delete_note(self):
 		pass
