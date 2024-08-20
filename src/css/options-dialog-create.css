@@ -1,0 +1,24 @@
+#OptionsDialogCreate {
+    background: #fff;
+}
+
+#HeadlineLabel {
+    font-size: 18px;
+    color: #000;
+}
+
+#CreateNotebookButton {
+    border-radius: 8px;
+    background: #4A5F61;
+    font-size: 18px;
+    border: none;
+    color: #fff;
+}
+
+#CreateNoteButton {
+    border-radius: 8px;
+    background: #6D628E;
+    font-size: 18px;
+    border: none;
+    color: #fff;
+}

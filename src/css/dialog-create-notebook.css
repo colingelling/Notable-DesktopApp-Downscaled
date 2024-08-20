@@ -1,0 +1,34 @@
+#DialogCreateNotebook {
+    background: #fff;
+}
+
+#HeadlineLabel {
+    font-size: 18px;
+    color: #000;
+}
+
+#WhatIsYourNotebookNameLabel {
+    font-size: 16px;
+    color: #000;
+}
+
+#NotebookName_lineEdit {
+    border: 1px solid rgba(0, 0, 0, 0.79);
+    border-radius: 6px;
+    background: #fff;
+    padding: 12px;
+    color: #000;
+}
+
+#AddNotebookButton {
+    background-color: #359E81;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-size: 16px;
+    border: none;
+    color: #fff;
+}
+
+#AddNotebookButton:hover {
+    background-color: #39ac8c;
+}
