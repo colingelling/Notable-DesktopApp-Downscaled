@@ -18,7 +18,7 @@ class Controller:
 		self.active_dialog = None  # Track the active QDialog
 	
 	def overview(self):
-		self.data_model.build()  # Initialize and build the data model
+		self.data_model.build_notebook_collection()  # Initialize and build the data model
 		
 		# Initialize and show the QMainWindow view
 		self.active_view = self.views_model.overview()
