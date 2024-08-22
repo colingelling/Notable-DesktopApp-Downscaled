@@ -4,14 +4,15 @@
     Using Pycharm Professional
 
 """
-from core.Model import Model
+
+from core.CollectionModel import CollectionModel
 from core.Views import Views
 
 
 class Controller:
 	
 	def __init__(self):
-		self.data_model = Model()
+		self.data_model = CollectionModel()
 		self.views_model = Views(self)
 		
 		self.active_view = None  # Track the active QMainWindow
