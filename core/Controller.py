@@ -4,19 +4,22 @@
     Using Pycharm Professional
 
 """
-
+from core.Model import Model
 from core.Views import Views
 
 
 class Controller:
 	
 	def __init__(self):
+		self.data_model = Model()
 		self.views_model = Views(self)
 		
 		self.active_view = None  # Track the active QMainWindow
 		self.active_dialog = None  # Track the active QDialog
 	
 	def overview(self):
+		self.data_model.build()  # Initialize and build the data model
+		
 		# Initialize and show the QMainWindow view
 		self.active_view = self.views_model.overview()
 		self.active_view.show()
@@ -28,16 +31,31 @@ class Controller:
 		self.active_dialog.exec()
 	
 	def add_notebook(self):
-		pass
-	
-	def delete_notebook(self):
-		pass
+		if self.active_dialog:
+			self.active_dialog.hide()
+			
+		self.active_dialog = self.views_model.add_notebook()
+		self.active_dialog.setModal(True)
+		self.active_dialog.exec()
 	
 	def add_note(self):
-		pass
-	
-	def edit_note(self):
+		if self.active_dialog:
+			self.active_dialog.hide()
+			
+		self.active_dialog = self.views_model.add_note()
+		self.active_dialog.setModal(True)
+		self.active_dialog.exec()
+		
+	def delete_notebook(self):
 		pass
 	
 	def delete_note(self):
 		pass
+	
+	def edit_notebook(self):
+		pass
+	
+	def note_viewer(self):
+		self.active_dialog = self.views_model.note_viewer()
+		self.active_dialog.setModal(True)
+		self.active_dialog.exec()
