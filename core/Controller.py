@@ -17,12 +17,20 @@ class Controller:
 		
 		self.active_view = None  # Track the active QMainWindow
 		self.active_dialog = None  # Track the active QDialog
+		
+		self.notebook_collection = self.data_model.collection
+		self.notebook_path = self.data_model.notebook_path
+		self.json_file = self.data_model.json_file
 	
 	def overview(self):
 		self.data_model.build_notebook_collection()  # Initialize and build the data model
 		
+		self.notebook_collection = self.data_model.collection
+		self.notebook_path = self.data_model.notebook_path
+		self.json_file = self.data_model.json_file
+		
 		# Initialize and show the QMainWindow view
-		self.active_view = self.views_model.overview()
+		self.active_view = self.views_model.overview(self.notebook_path, self.notebook_collection)
 		self.active_view.show()
 	
 	def options(self):

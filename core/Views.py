@@ -18,7 +18,7 @@ class Views:
 		super(Views, self).__init__()
 		self.controller = controller  # Keep a reference to the controller
 	
-	def overview(self):
+	def overview(self, resource, dataset):
 		window = QtWidgets.QMainWindow()  # Create a new QMainWindow instance
 	
 		qt_creator_file = "src/ui/OverviewWindow.ui"  # Define the .ui file
@@ -71,6 +71,18 @@ class Views:
 		ui.createButton.setGeometry(335, 5, 51, 31)
 		ui.createButton.clicked.connect(self.controller.options)
 		ui.createButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+		
+		# Begin TreeView
+		from core.TreeModel import TreeModel
+		model = TreeModel()
+		tree = model.build(resource)
+		
+		# Set up the layout and parent widget
+		from PyQt6.QtWidgets import QVBoxLayout
+		layout = QVBoxLayout()
+		parent_widget = ui.treeWidget
+		layout.addWidget(tree)
+		parent_widget.setLayout(layout)
 		
 		# Return this instance (current QMainWindow)
 		return window
