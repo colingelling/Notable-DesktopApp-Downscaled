@@ -4,6 +4,8 @@
     Using Pycharm Professional
 
 """
+import json
+from functools import partial
 
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtCore import Qt
@@ -17,20 +19,24 @@ class Views:
 	def __init__(self, controller):
 		super(Views, self).__init__()
 		self.controller = controller  # Keep a reference to the controller
+		self.json_file = None
+
 	
-	def overview(self, resource, dataset):
+	def overview(self, notebook_path, file):
 		window = QtWidgets.QMainWindow()  # Create a new QMainWindow instance
 	
 		qt_creator_file = "src/ui/OverviewWindow.ui"  # Define the .ui file
 		ui = uic.loadUi(qt_creator_file, window)  # Load the .ui file
 		
-		# Load the stylesheet file
+		# Load matched stylesheet file
 		with open("src/css/overview.css", "r") as stylesheet_file:
 			stylesheet = stylesheet_file.read()
 			window.setStyleSheet(stylesheet)
 		
+		# Declare application font, FontAwesome icon pack
 		font_id = QFontDatabase.addApplicationFont("src/fonts/FontAwesome6-Free-Regular-400.otf")
 		
+		# Verify successful load and set the font
 		if font_id == -1:
 			print("Failed to load font.")
 		else:
@@ -66,18 +72,30 @@ class Views:
 		# Declare button icon
 		plus_icon_unicode = " \uf067"
 		
-		# Button setup
+		# Button setup for showing create menu
 		ui.createButton.setText(plus_icon_unicode)
 		ui.createButton.setGeometry(335, 5, 51, 31)
 		ui.createButton.clicked.connect(self.controller.options)
 		ui.createButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 		
-		# Begin TreeView
+		# Build a QTreeView instance
 		from core.TreeModel import TreeModel
 		model = TreeModel()
-		tree = model.build(resource)
+		tree = model.build(notebook_path)
+
+		self.json_file = file
+		# with open(self.json_file, 'r', encoding='utf-8') as f:
+		# 	data = json.load(f)
+
+		# tree.clicked.connect(lambda index: self.controller.note_viewer(model.collect_note_data(index, data)))
+
+		# print(collected_data)
 		
-		# Set up the layout and parent widget
+		# Bind items from tree_view object to open window functionality, which eventually will connect to the window
+		# if collected_data:
+		# 	tree.clicked.connect(partial(self.controller.note_viewer, collected_data))
+
+		# Setup of the layout and parent widget for the TreeView
 		from PyQt6.QtWidgets import QVBoxLayout
 		layout = QVBoxLayout()
 		parent_widget = ui.treeWidget
@@ -98,14 +116,17 @@ class Views:
 			stylesheet = stylesheet_file.read()
 			dialog.setStyleSheet(stylesheet)
 		
+		# Declare window title
 		window_title = "Options window"
 		
 		# Set static window information
 		dialog.setWindowTitle(f"{window_title}: What do you want to create?")
 		
+		# Set headline
 		ui.HeadlineLabel.setText(window_title)
 		ui.HeadlineLabel.adjustSize()
 		
+		# Button configurations
 		ui.CreateNotebookButton.clicked.connect(self.controller.add_notebook)
 		ui.CreateNotebookButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 		ui.CreateNotebookButton.setText("A notebook")
@@ -127,17 +148,21 @@ class Views:
 			stylesheet = stylesheet_file.read()
 			dialog.setStyleSheet(stylesheet)
 		
+		# Declare window title
 		window_title = "Notebook creator"
 		
 		# Set static window information
 		dialog.setWindowTitle(f"{window_title}: Create a notebook")
 		
+		# Adjust widget sizes
 		ui.titleWidget.setMaximumSize(744, 144)
 		ui.creatorWidget.setMaximumSize(744, 144)
 		
+		# Set headline
 		ui.HeadlineLabel.setText(window_title)
 		ui.HeadlineLabel.adjustSize()
 		
+		# Set input label
 		ui.WhatIsYourNotebookNameLabel.setText("What will the name of your new notebook be?")
 		ui.WhatIsYourNotebookNameLabel.adjustSize()
 		

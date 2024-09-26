@@ -1,0 +1,18 @@
+This repository contains:
+
+- 3 core files, which are 3 classes
+- css files for the graphical interface
+- UI designer files which represent the windows
+- Main loader
+
+Core functionality explained:
+
+1. Controller
+This file (class) is responsible for loading views with access to the Model class's properties
+
+2. Model
+This file (class) is responsible for any piece of information that should eventually be passed through views
+
+3. Views
+This file (class) has everything to do with views; such as doing window preparations, modifying window properties like
+widgets and manipulating data
